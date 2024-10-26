@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Management - Earnease</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1c1c1c;
+      color: #ddd;
+    }
+    .container {
+      margin-top: 50px;
+      background-color: #333;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    .card {
+      background-color: #444;
+      border-radius: 8px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    }
+    .btn {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 15px;
+      font-size: 1.2rem;
+      color: #ddd;
+      border: none;
+    }
+    .btn-outline-info { background-color: #4b6584; }
+    .btn-outline-primary { background-color: #3867d6; }
+    .btn-outline-success { background-color: #20bf6b; }
+    .btn-outline-warning { background-color: #fa8231; }
+    .btn-outline-light { background-color: #a5b1c2; }
+    .chart-container {
+      width: 100%;
+      height: 300px;
+      margin: 20px 0;
+    }
+    .company-credits {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #aaa;
+    }
+    .feature-section, .employee-list-section {
+      text-align: center;
+    }
+    .feature-section h2, .employee-list-section h2 {
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #ddd;
+    }
+    .list-group-item {
+      background-color: #555;
+      color: #ddd;
+    }
+    .list-group-item:hover {
+      cursor: pointer;
+      background-color: #666;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center">HR Management - Earnease</h2>
+
+  <!-- Feature Selection -->
+  <div class="row feature-section">
+    <div class="col-md-12">
+      <h2>Select a Feature</h2>
+      <div class="card">
+        <div class="card-body text-center">
+          <button class="btn btn-outline-info" onclick="showEmployeeList('performance')">View Performance</button>
+          <button class="btn btn-outline-primary" onclick="showEmployeeList('salary')">Manage Salary</button>
+          <button class="btn btn-outline-success" onclick="showEmployeeList('cap')">Cap Early Wage Withdrawal</button>
+          <button class="btn btn-outline-warning" onclick="showEmployeeList('warning')">Issue Warning</button>
+          <button class="btn btn-outline-light" onclick="window.location.href='https://sarthak102005.github.io/improvedearn/'">Add Funds</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Employee List Section -->
+  <div class="row employee-list-section" style="display: none;">
+    <div class="col-md-12">
+      <h2>Select an Employee</h2>
+      <div class="card">
+        <div class="card-body">
+          <ul class="list-group" id="employeeList">
+            <li class="list-group-item" onclick="showFeaturePage('Amit Sharma')">Amit Sharma</li>
+            <li class="list-group-item" onclick="showFeaturePage('Riya Gupta')">Riya Gupta</li>
+            <li class="list-group-item" onclick="showFeaturePage('Rohan Verma')">Rohan Verma</li>
+            <li class="list-group-item" onclick="showFeaturePage('Sneha Patel')">Sneha Patel</li>
+            <li class="list-group-item" onclick="showFeaturePage('Vikas Singh')">Vikas Singh</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Pages -->
+  <div class="row" id="featurePage" style="display: none;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" id="featureTitle">Feature Title</div>
+        <div class="card-body">
+          <!-- Cap Early Wage Withdrawal Section -->
+          <div id="capSection" style="display: none;">
+            <h5 id="employeeNameCap"></h5>
+            <p>Current Cap: <span id="currentCap">40%</span></p>
+            <label for="capPercent">Enter New Cap Percentage:</label>
+            <input type="number" id="capPercent" class="form-control" placeholder="Enter %">
+            <button class="btn btn-primary mt-2" onclick="updateCap()">Set Cap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="company-credits">
+    © 2024 Earnease Pvt. Ltd.
+  </div>
+</div>
+
+<script>
+  let selectedFeature = '';
+
+  function showEmployeeList(feature) {
+    selectedFeature = feature;
+    document.querySelector('.feature-section').style.display = 'none';
+    document.querySelector('.employee-list-section').style.display = 'block';
+  }
+
+  function showFeaturePage(employee) {
+    document.querySelector('.employee-list-section').style.display = 'none';
+    document.getElementById('featurePage').style.display = 'block';
+
+    // Reset all feature sections
+    document.getElementById('capSection').style.display = 'none';
+
+    if (selectedFeature === 'cap') {
+      document.getElementById('featureTitle').innerText = 'Cap Early Wage Withdrawal';
+      document.getElementById('employeeNameCap').innerText = `Set Cap for ${employee}`;
+      document.getElementById('capSection').style.display = 'block';
+    }
+  }
+
+  function updateCap() {
+    const capPercent = document.getElementById('capPercent').value;
+    if (capPercent) {
+      document.getElementById('currentCap').innerText = capPercent + '%';
+      alert('New early wage cap set to ' + capPercent + '%');
+    } else {
+      alert('Please enter a valid cap percentage.');
+    }
+  }
+</script>
+
+</body>
+</html>
